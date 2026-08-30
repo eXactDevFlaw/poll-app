@@ -1,0 +1,63 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+
+  &__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  &__control {
+    position: relative;
+    display: flex;
+  }
+
+  &__input {
+    width: 100%;
+    background: var(--color-field-bg);
+    color: var(--color-field-text);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: inherit;
+    font-size: 14px;
+
+    &::placeholder {
+      color: #9a94a3;
+    }
+
+    &:focus {
+      outline: 2px solid var(--color-primary);
+    }
+  }
+
+  textarea.field__input {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  &__clear {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #9a94a3;
+    cursor: pointer;
+    display: flex;
+    padding: 4px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      color: var(--color-dark);
+    }
+  }
+}

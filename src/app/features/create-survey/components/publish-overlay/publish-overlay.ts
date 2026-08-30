@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
+import { Overlay } from '../../../../shared/components/overlay/overlay';
 
 @Component({
   selector: 'app-publish-overlay',
-  imports: [],
+  imports: [Overlay],
   templateUrl: './publish-overlay.html',
   styleUrl: './publish-overlay.scss',
 })
-export class PublishOverlay {}
+export class PublishOverlay {
+  close = output<void>();
+}

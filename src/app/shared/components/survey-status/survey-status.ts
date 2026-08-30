@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-survey-status',
@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './survey-status.html',
   styleUrl: './survey-status.scss',
 })
-export class SurveyStatus {}
+export class SurveyStatus {
+  status = input.required<'draft' | 'published'>();
+}

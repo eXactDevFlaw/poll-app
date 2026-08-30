@@ -1,0 +1,13 @@
+.status {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--color-secondary);
+  color: var(--color-dark);
+
+  &--published {
+    background: var(--color-primary);
+  }
+}

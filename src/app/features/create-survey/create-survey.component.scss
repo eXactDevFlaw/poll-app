@@ -1,0 +1,45 @@
+.create-survey {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 32px;
+  background: var(--color-dark);
+  border-radius: 5px 60px 5px 5px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+
+  &__title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    h1 {
+      font-family: 'Nerko One', cursive;
+      color: var(--color-primary);
+      font-size: 32px;
+    }
+  }
+
+  &__questions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 24px;
+  }
+
+  &__error {
+    color: var(--color-danger);
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+}

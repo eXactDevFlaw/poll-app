@@ -1,1 +1,36 @@
-<p>survey-meta-form works!</p>
+<div class="meta-form">
+  <div class="meta-form__col">
+    <app-input-field
+      label="Survey name"
+      clearable
+      [value]="meta().name"
+      (valueChange)="setName($event)"
+    />
+    <div class="meta-form__row">
+      <app-input-field
+        label="Set end date (optional)"
+        type="date"
+        clearable
+        [value]="meta().end_date"
+        (valueChange)="setEndDate($event)"
+      />
+      <app-dropdown
+        label="Choose category"
+        placeholder="Choose category"
+        [options]="categories()"
+        [selected]="meta().category"
+        (selectedChange)="setCategory($event)"
+      />
+    </div>
+  </div>
+
+  <div class="meta-form__col">
+    <app-input-field
+      label="Describing text (optional)"
+      multiline
+      clearable
+      [value]="meta().description"
+      (valueChange)="setDescription($event)"
+    />
+  </div>
+</div>

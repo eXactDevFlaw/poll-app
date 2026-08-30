@@ -1,1 +1,13 @@
-<p>survey-header works!</p>
+<div class="survey-header">
+  <div class="survey-header__top">
+    <app-survey-status [status]="survey().status" />
+    <span class="survey-header__meta">
+      Ends on {{ survey().end_date }}
+      <span class="survey-header__category">Category: {{ survey().category }}</span>
+    </span>
+  </div>
+  <h1>{{ survey().name }}</h1>
+  @if (survey().description) {
+    <p>{{ survey().description }}</p>
+  }
+</div>

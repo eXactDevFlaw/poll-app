@@ -1,0 +1,43 @@
+.survey-detail {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+
+  &__logo {
+    height: 40px;
+    object-fit: contain;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  &__card {
+    background: var(--color-bg-card);
+    border-radius: 5px 60px 5px 5px;
+    padding: 32px;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+
+  &__results {
+    background: var(--color-bg-card);
+    border-radius: 5px 60px 5px 5px;
+    padding: 32px;
+    color: var(--color-dark);
+  }
+}

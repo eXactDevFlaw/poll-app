@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-answer-option',
@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './answer-option.html',
   styleUrl: './answer-option.scss',
 })
-export class AnswerOption {}
+export class AnswerOption {
+  letter = input.required<string>();
+  label = input.required<string>();
+}

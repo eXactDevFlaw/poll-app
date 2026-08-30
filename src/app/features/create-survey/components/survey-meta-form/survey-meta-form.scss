@@ -1,0 +1,22 @@
+.meta-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+
+    app-input-field {
+      flex: 1;
+    }
+  }
+}

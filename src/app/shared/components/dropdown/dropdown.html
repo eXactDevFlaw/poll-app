@@ -1,1 +1,34 @@
-<p>dropdown works!</p>
+<div class="dropdown">
+  @if (label()) {
+    <label class="dropdown__label">{{ label() }}</label>
+  }
+  <button type="button" class="dropdown__trigger" (click)="toggle()">
+    <span>{{ selected() || placeholder() }}</span>
+    <svg
+      class="dropdown__chevron"
+      [class.dropdown__chevron--open]="isOpen()"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  @if (isOpen()) {
+    <ul class="dropdown__list">
+      @for (option of options(); track option) {
+        <li
+          class="dropdown__option"
+          [class.dropdown__option--selected]="option === selected()"
+          (click)="select(option)"
+        >
+          {{ option }}
+        </li>
+      }
+    </ul>
+  }
+</div>

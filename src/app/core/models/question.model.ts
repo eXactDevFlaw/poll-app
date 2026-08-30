@@ -3,4 +3,5 @@ export interface Question {
   survey_id: string;
   text: string;
   position: number;
+  allow_multiple: boolean;
 }

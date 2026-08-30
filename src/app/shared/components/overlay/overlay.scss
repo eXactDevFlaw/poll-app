@@ -1,0 +1,46 @@
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-secondary);
+  color: var(--color-dark);
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  max-width: 320px;
+  z-index: 100;
+  animation: toast-in 250ms ease-out;
+
+  &__content {
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    color: var(--color-dark);
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

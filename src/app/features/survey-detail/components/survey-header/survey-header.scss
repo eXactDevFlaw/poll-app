@@ -1,0 +1,30 @@
+.survey-header {
+  color: var(--color-dark);
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  &__meta {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: #888;
+  }
+
+  h1 {
+    font-family: 'Nerko One', cursive;
+    font-size: 28px;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+}

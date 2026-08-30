@@ -1,1 +1,3 @@
-<p>survey-status works!</p>
+<span class="status" [class.status--published]="status() === 'published'">
+  {{ status() === 'published' ? 'Published' : 'Draft' }}
+</span>

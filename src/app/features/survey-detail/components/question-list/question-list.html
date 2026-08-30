@@ -1,1 +1,13 @@
-<p>question-list works!</p>
+<div class="question-list">
+  @for (question of questions(); track question.id; let qIndex = $index) {
+    <div class="question-list__item">
+      <p class="question-list__text">{{ qIndex + 1 }}. {{ question.text }}</p>
+      @if (question.allow_multiple) {
+        <p class="question-list__hint">More than one answers are possible.</p>
+      }
+      @for (answer of question.answers; track answer.id; let aIndex = $index) {
+        <app-answer-option [letter]="letterFor(aIndex)" [label]="answer.text" />
+      }
+    </div>
+  }
+</div>
