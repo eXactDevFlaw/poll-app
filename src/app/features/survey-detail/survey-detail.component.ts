@@ -1,7 +1,8 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { QuestionWithAnswers, SurveyService } from '../../core/services/survey.service';
 import { Survey } from '../../core/models/survey.model';
+import { isEnded } from '../../core/utils/survey-state';
 import { Button } from '../../shared/components/button/button';
 import { SurveyHeader } from './components/survey-header/survey-header';
 import { QuestionList } from './components/question-list/question-list';
@@ -20,6 +21,11 @@ export class SurveyDetailComponent implements OnInit {
   survey = signal<Survey | null>(null);
   questions = signal<QuestionWithAnswers[]>([]);
   isLoading = signal(true);
+
+  isEnded = computed(() => {
+    const survey = this.survey();
+    return survey ? isEnded(survey) : false;
+  });
 
   async ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');

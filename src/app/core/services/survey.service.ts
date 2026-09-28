@@ -31,18 +31,6 @@ export class SurveyService {
     return data ?? [];
   }
 
-  async getEndingSoonSurveys(): Promise<Survey[]> {
-    const { data, error } = await this.supabase
-      .from('surveys')
-      .select('*')
-      .eq('status', 'published')
-      .order('end_date', { ascending: true })
-      .limit(3);
-
-    if (error) console.error(error);
-    return data ?? [];
-  }
-
   async getSurveyById(id: string): Promise<Survey | null> {
     const { data, error } = await this.supabase.from('surveys').select('*').eq('id', id).single();
 

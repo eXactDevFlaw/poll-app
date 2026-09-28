@@ -1,12 +1,11 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, computed, inject, output, signal } from '@angular/core';
 import { DraftQuestion, NewSurveyMeta, SurveyService } from '../../core/services/survey.service';
+import { Survey } from '../../core/models/survey.model';
 import { Button } from '../../shared/components/button/button';
 import { SurveyStatus } from '../../shared/components/survey-status/survey-status';
 import { SurveyMetaForm } from './components/survey-meta-form/survey-meta-form';
 import { QuestionBlock } from './components/question-block/question-block';
 import { AddQuestionBtn } from './components/add-question-btn/add-question-btn';
-import { PublishOverlay } from './components/publish-overlay/publish-overlay';
 
 const CATEGORIES = [
   'Team Activities',
@@ -25,11 +24,10 @@ function emptyQuestion(): DraftQuestion {
   selector: 'app-create-survey',
   templateUrl: './create-survey.component.html',
   styleUrl: './create-survey.component.scss',
-  imports: [RouterLink, Button, SurveyStatus, SurveyMetaForm, QuestionBlock, AddQuestionBtn, PublishOverlay],
+  imports: [Button, SurveyStatus, SurveyMetaForm, QuestionBlock, AddQuestionBtn],
 })
 export class CreateSurveyComponent {
   private surveyService = inject(SurveyService);
-  private router = inject(Router);
 
   readonly categories = CATEGORIES;
 
@@ -37,9 +35,10 @@ export class CreateSurveyComponent {
   questions = signal<DraftQuestion[]>([emptyQuestion()]);
 
   isPublishing = signal(false);
-  showPublishedToast = signal(false);
   errorMessage = signal<string | null>(null);
-  publishedSurveyId = signal<string | null>(null);
+
+  cancelled = output<void>();
+  published = output<Survey>();
 
   isValid = computed(() => {
     const meta = this.meta();
@@ -70,19 +69,12 @@ export class CreateSurveyComponent {
 
     try {
       const survey = await this.surveyService.publishSurvey(this.meta(), this.questions());
-      this.publishedSurveyId.set(survey.id);
-      this.showPublishedToast.set(true);
+      this.published.emit(survey);
     } catch (error) {
       console.error(error);
       this.errorMessage.set('Something went wrong while publishing your survey. Please try again.');
     } finally {
       this.isPublishing.set(false);
     }
-  }
-
-  closeToast(): void {
-    this.showPublishedToast.set(false);
-    const id = this.publishedSurveyId();
-    if (id) this.router.navigate(['/survey', id]);
   }
 }

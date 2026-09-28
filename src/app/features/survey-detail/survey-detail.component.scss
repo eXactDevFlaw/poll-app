@@ -28,6 +28,16 @@
     padding: 32px;
   }
 
+  &__ended {
+    margin-top: 24px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: var(--color-secondary);
+    color: var(--color-dark);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
   &__footer {
     display: flex;
     justify-content: flex-end;

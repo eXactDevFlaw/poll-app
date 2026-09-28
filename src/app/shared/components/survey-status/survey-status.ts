@@ -1,4 +1,11 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
+import { SurveyState } from '../../../core/utils/survey-state';
+
+const LABELS: Record<SurveyState, string> = {
+  draft: 'Draft',
+  active: 'Active',
+  ended: 'Ended',
+};
 
 @Component({
   selector: 'app-survey-status',
@@ -7,5 +14,7 @@ import { Component, input } from '@angular/core';
   styleUrl: './survey-status.scss',
 })
 export class SurveyStatus {
-  status = input.required<'draft' | 'published'>();
+  status = input.required<SurveyState>();
+
+  label = computed(() => LABELS[this.status()]);
 }

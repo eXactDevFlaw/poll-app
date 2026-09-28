@@ -1,18 +1,17 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { Survey } from '../../../../core/models/survey.model';
+import { getDaysLabel, getSurveyState } from '../../../../core/utils/survey-state';
+import { SurveyStatus } from '../../../../shared/components/survey-status/survey-status';
 
 @Component({
   selector: 'app-survey-card',
+  imports: [SurveyStatus],
   templateUrl: './survey-card.html',
   styleUrl: './survey-card.scss',
 })
 export class SurveyCardComponent {
   survey = input.required<Survey>();
 
-  getDaysLabel(endDate: string): string {
-    const today = new Date();
-    const end = new Date(endDate);
-    const diff = Math.ceil((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-    return diff === 1 ? 'Ends in 1 Day' : `Ends in ${diff} Days`;
-  }
+  state = computed(() => getSurveyState(this.survey()));
+  daysLabel = computed(() => getDaysLabel(this.survey()));
 }

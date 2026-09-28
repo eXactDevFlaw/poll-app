@@ -1,8 +1,12 @@
 <div class="survey-header">
   <div class="survey-header__top">
-    <app-survey-status [status]="survey().status" />
+    <app-survey-status [status]="state()" />
     <span class="survey-header__meta">
-      Ends on {{ survey().end_date }}
+      @if (survey().end_date) {
+        {{ state() === 'ended' ? 'Ended on' : 'Ends on' }} {{ survey().end_date }}
+      } @else {
+        No end date
+      }
       <span class="survey-header__category">Category: {{ survey().category }}</span>
     </span>
   </div>

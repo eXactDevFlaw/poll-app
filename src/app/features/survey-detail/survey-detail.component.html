@@ -1,7 +1,7 @@
 <main class="survey-detail">
   <header class="survey-detail__header">
     <img src="assets/img/logo-light.svg" alt="Poll App" class="survey-detail__logo" />
-    <app-button variant="primary" routerLink="/create">Create survey</app-button>
+    <app-button variant="primary" routerLink="/" [queryParams]="{ create: 1 }">Create survey</app-button>
   </header>
 
   @if (isLoading()) {
@@ -12,9 +12,12 @@
     <div class="survey-detail__content">
       <div class="survey-detail__card">
         <app-survey-header [survey]="survey()!" />
+        @if (isEnded()) {
+          <p class="survey-detail__ended">This survey has ended. You can still view the results, but no more answers are accepted.</p>
+        }
         <app-question-list [questions]="questions()" />
         <div class="survey-detail__footer">
-          <app-button variant="primary" [disabled]="true">Complete survey</app-button>
+          <app-button variant="primary" [disabled]="true">{{ isEnded() ? 'Survey ended' : 'Complete survey' }}</app-button>
         </div>
       </div>
 

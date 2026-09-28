@@ -1,7 +1,30 @@
-<div class="survey-list">
-  @for (survey of surveys(); track survey.id) {
+<div class="survey-tabs" role="tablist">
+  <button
+    type="button"
+    role="tab"
+    class="survey-tabs__tab"
+    [class.survey-tabs__tab--active]="activeTab() === 'active'"
+    [attr.aria-selected]="activeTab() === 'active'"
+    (click)="activeTab.set('active')"
+  >
+    Active surveys
+  </button>
+  <button
+    type="button"
+    role="tab"
+    class="survey-tabs__tab"
+    [class.survey-tabs__tab--active]="activeTab() === 'past'"
+    [attr.aria-selected]="activeTab() === 'past'"
+    (click)="activeTab.set('past')"
+  >
+    Past surveys
+  </button>
+</div>
+
+<div class="survey-list" role="tabpanel">
+  @for (survey of visibleSurveys(); track survey.id) {
     <app-survey-card [survey]="survey" />
   } @empty {
-    <p>No surveys yet.</p>
+    <p>{{ activeTab() === 'active' ? 'No active surveys.' : 'No past surveys yet.' }}</p>
   }
 </div>

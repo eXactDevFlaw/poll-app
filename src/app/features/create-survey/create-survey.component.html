@@ -1,10 +1,10 @@
-<main class="create-survey">
+<div class="create-survey">
   <header class="create-survey__header">
     <div class="create-survey__title-row">
       <app-survey-status status="draft" />
-      <h1>Create new survey</h1>
+      <h1 id="create-survey-title">Create new survey</h1>
     </div>
-    <app-button variant="tertiary" routerLink="/">
+    <app-button variant="tertiary" (buttonClick)="cancelled.emit()">
       Cancel
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -39,8 +39,4 @@
       </app-button>
     </div>
   </section>
-
-  @if (showPublishedToast()) {
-    <app-publish-overlay (close)="closeToast()" />
-  }
-</main>
+</div>
