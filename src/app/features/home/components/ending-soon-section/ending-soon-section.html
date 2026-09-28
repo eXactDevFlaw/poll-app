@@ -2,11 +2,11 @@
   <h3>Ending soon surveys</h3>
   <div class="ending-soon__grid">
     @for (survey of surveys(); track survey.id) {
-      <div class="ending-soon__card">
+      <a class="ending-soon__card" [routerLink]="['/survey', survey.id]">
         <span class="ending-soon__category">{{ survey.category }}</span>
         <h4>{{ survey.name }}</h4>
         <span class="ending-soon__badge">{{ getDaysLabel(survey) }}</span>
-      </div>
+      </a>
     }
   </div>
 </div>
