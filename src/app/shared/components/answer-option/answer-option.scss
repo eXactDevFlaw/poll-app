@@ -1,14 +1,66 @@
 .answer-option {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 2px 4px;
+  border-radius: 2px 8px 2px 2px;
+  color: var(--color-ink);
   font-size: 14px;
-  color: var(--color-dark);
-  padding: 4px 0;
+  cursor: pointer;
+  transition: background-color 150ms ease-out;
 
-  input {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--color-primary);
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  &__box {
+    position: relative;
+    flex-shrink: 0;
+    width: 21px;
+    height: 21px;
+  }
+
+  &__icon {
+    position: absolute;
+    inset: 0;
+    transition: opacity 150ms ease-out;
+
+    &--hover,
+    &--checked {
+      opacity: 0;
+    }
+  }
+
+  &__text {
+    padding-top: 1px;
+  }
+
+  // Hover: light peach row + hover checkbox (Figma component "Answer")
+  &:hover:not(.answer-option--disabled) {
+    background: rgba(255, 207, 161, 0.4);
+  }
+
+  &:hover:not(.answer-option--disabled) &__icon--hover {
+    opacity: 1;
+  }
+
+  &--checked &__icon--checked {
+    opacity: 1;
+  }
+
+  &__input:focus-visible ~ &__box {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+    border-radius: 4px;
+  }
+
+  // Ended survey or already voted: visible, but not clickable
+  &--disabled {
+    cursor: default;
+    opacity: 0.6;
   }
 }

@@ -1,24 +1,32 @@
 .question-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  color: var(--color-dark);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 24px;
+  color: var(--color-ink);
 
   &__item {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    min-width: 0;
+    border: none;
   }
 
   &__text {
+    margin-bottom: 4px;
+    font-size: 16px;
     font-weight: 700;
-    font-size: 14px;
-    margin-bottom: 2px;
   }
 
   &__hint {
-    font-size: 12px;
+    margin-bottom: 4px;
     color: #888;
-    margin-bottom: 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .question-list {
+    grid-template-columns: 1fr;
   }
 }

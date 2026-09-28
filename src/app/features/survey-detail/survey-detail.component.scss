@@ -32,20 +32,33 @@
     padding: 32px;
   }
 
-  &__ended {
-    margin-top: 24px;
+  &__notice {
+    margin: 24px 0;
     padding: 12px 16px;
     border-radius: 8px;
     background: var(--color-secondary);
-    color: var(--color-dark);
+    color: var(--color-ink);
     font-size: 14px;
     font-weight: 700;
   }
 
   &__footer {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: flex-end;
+    gap: 12px 24px;
     margin-top: 24px;
+  }
+
+  &__hint {
+    color: #888;
+    font-size: 14px;
+  }
+
+  &__error {
+    color: #c0392b;
+    font-size: 14px;
   }
 
   &__results {

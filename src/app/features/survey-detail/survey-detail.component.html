@@ -15,11 +15,35 @@
       <div class="survey-detail__card">
         <app-survey-header [survey]="survey()!" />
         @if (isEnded()) {
-          <p class="survey-detail__ended">This survey has ended. You can still view the results, but no more answers are accepted.</p>
+          <p class="survey-detail__notice">This survey has ended. You can still view the results, but no more answers are accepted.</p>
+        } @else if (hasVoted()) {
+          <p class="survey-detail__notice" role="status">Thank you for taking part! Your answers have been counted.</p>
         }
-        <app-question-list [questions]="questions()" />
+        <app-question-list
+          [questions]="questions()"
+          [selection]="selection()"
+          [disabled]="isLocked()"
+          (answerToggled)="toggleAnswer($event)"
+        />
         <div class="survey-detail__footer">
-          <app-button variant="primary" [disabled]="true">{{ isEnded() ? 'Survey ended' : 'Complete survey' }}</app-button>
+          @if (voteError()) {
+            <p class="survey-detail__error" role="alert">{{ voteError() }}</p>
+          } @else if (!isLocked() && !isComplete()) {
+            <p class="survey-detail__hint">Please answer every question to complete the survey.</p>
+          }
+          <app-button
+            variant="primary"
+            [disabled]="isLocked() || !isComplete() || isSubmitting()"
+            (buttonClick)="completeSurvey()"
+          >
+            @if (isEnded()) {
+              Survey ended
+            } @else if (hasVoted()) {
+              Survey completed
+            } @else {
+              Complete survey
+            }
+          </app-button>
         </div>
       </div>
 

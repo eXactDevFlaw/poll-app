@@ -1,4 +1,20 @@
-<label class="answer-option">
-  <input type="checkbox" disabled />
-  <span><strong>{{ letter() }}.</strong> {{ label() }}</span>
+<label
+  class="answer-option"
+  [class.answer-option--checked]="checked()"
+  [class.answer-option--disabled]="disabled()"
+>
+  <input
+    class="answer-option__input"
+    [type]="multiple() ? 'checkbox' : 'radio'"
+    [name]="name()"
+    [checked]="checked()"
+    [disabled]="disabled()"
+    (change)="toggled.emit()"
+  />
+  <span class="answer-option__box" aria-hidden="true">
+    <img class="answer-option__icon" src="assets/img/checkbox.svg" alt="" />
+    <img class="answer-option__icon answer-option__icon--hover" src="assets/img/checkbox-hover.svg" alt="" />
+    <img class="answer-option__icon answer-option__icon--checked" src="assets/img/checkbox-checked.svg" alt="" />
+  </span>
+  <span class="answer-option__text"><strong>{{ letter() }}.</strong> {{ label() }}</span>
 </label>

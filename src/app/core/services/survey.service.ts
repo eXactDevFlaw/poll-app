@@ -43,7 +43,8 @@ export class SurveyService {
       .from('questions')
       .select('*, answers(*)')
       .eq('survey_id', surveyId)
-      .order('position');
+      .order('position')
+      .order('position', { referencedTable: 'answers' });
 
     if (error) console.error(error);
     return (data as QuestionWithAnswers[]) ?? [];
@@ -73,7 +74,7 @@ export class SurveyService {
     if (questionsError || !createdQuestions) throw questionsError ?? new Error('Failed to create questions');
 
     const answersPayload = questions.flatMap((question, index) =>
-      question.answers.map((text) => ({ question_id: createdQuestions[index].id, text, votes: 0 })),
+      question.answers.map((text, position) => ({ question_id: createdQuestions[index].id, text, position, votes: 0 })),
     );
 
     const { error: answersError } = await this.supabase.from('answers').insert(answersPayload);
@@ -81,5 +82,11 @@ export class SurveyService {
     if (answersError) throw answersError;
 
     return survey;
+  }
+
+  /** Adds one vote to each given answer. The database function rejects ended surveys. */
+  async vote(answerIds: string[]): Promise<void> {
+    const { error } = await this.supabase.rpc('vote', { answer_ids: answerIds });
+    if (error) throw error;
   }
 }
