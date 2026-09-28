@@ -27,7 +27,12 @@
     grid-template-columns: 1fr;
 
     &__row {
-      flex-wrap: wrap;
+      flex-direction: column-reverse;
+      align-items: stretch;
+    }
+
+    &__date {
+      flex: none;
     }
   }
 }

@@ -3,7 +3,9 @@
     <a routerLink="/" class="survey-detail__logo-link" title="Back to all surveys">
       <img src="assets/img/logo-dark.svg" alt="Poll App – back to all surveys" class="survey-detail__logo" />
     </a>
-    <app-button variant="primary" routerLink="/" [queryParams]="{ create: 1 }">Create survey</app-button>
+    <app-button class="survey-detail__create" variant="primary" routerLink="/" [queryParams]="{ create: 1 }">
+      Create survey
+    </app-button>
   </header>
 
   @if (isLoading()) {
@@ -13,6 +15,9 @@
   } @else {
     <div class="survey-detail__content">
       <article class="survey-detail__card">
+        <a routerLink="/" class="survey-detail__close" aria-label="Back to all surveys" title="Back to all surveys">
+          <img src="assets/img/close.svg" alt="" />
+        </a>
         <app-survey-header [survey]="survey()!" />
         @if (isEnded()) {
           <p class="survey-detail__notice">This survey has ended. You can still view the results, but no more answers are accepted.</p>
@@ -47,8 +52,18 @@
         </div>
       </article>
 
-      <aside class="survey-detail__results">
-        <app-result-panel [questions]="questions()" />
+      <aside class="survey-detail__results" [class.survey-detail__results--open]="showResults()">
+        <button
+          type="button"
+          class="survey-detail__results-toggle"
+          aria-controls="survey-results"
+          [attr.aria-expanded]="showResults()"
+          (click)="toggleResults()"
+        >
+          {{ showResults() ? 'Close results' : 'See results' }}
+          <span class="survey-detail__arrow" [class.survey-detail__arrow--up]="showResults()" aria-hidden="true"></span>
+        </button>
+        <app-result-panel id="survey-results" [questions]="questions()" />
       </aside>
     </div>
   }

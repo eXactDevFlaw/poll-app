@@ -28,3 +28,17 @@
     line-height: 1.5;
   }
 }
+
+@media (max-width: 768px) {
+  .survey-header {
+    padding-right: 40px;
+
+    h1 {
+      font-size: 36px;
+    }
+
+    &__description {
+      font-size: 14px;
+    }
+  }
+}

@@ -35,3 +35,22 @@
   overflow-y: auto;
   overscroll-behavior: contain;
 }
+
+@media (max-width: 768px) {
+  .home {
+    padding: 24px 16px;
+  }
+
+  .header {
+    margin-bottom: 24px;
+  }
+
+  .surveys h2 {
+    margin-bottom: 24px;
+    font-size: 40px;
+  }
+
+  .create-overlay {
+    padding: 0 8px;
+  }
+}

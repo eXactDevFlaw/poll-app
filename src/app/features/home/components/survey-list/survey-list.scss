@@ -57,3 +57,18 @@
     color: var(--color-text-muted);
   }
 }
+
+@media (max-width: 768px) {
+  .survey-filters {
+    flex-direction: column;
+    gap: 24px;
+
+    &__category {
+      align-items: flex-start;
+    }
+  }
+
+  .survey-list {
+    grid-template-columns: 1fr;
+  }
+}

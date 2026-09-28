@@ -36,6 +36,7 @@ export class SurveyDetailComponent implements OnInit {
   hasVoted = signal(false);
   isSubmitting = signal(false);
   voteError = signal<string | null>(null);
+  showResults = signal(false);
 
   isEnded = computed(() => {
     const survey = this.survey();
@@ -64,6 +65,11 @@ export class SurveyDetailComponent implements OnInit {
       ...selection,
       [question.id]: toggleAnswerId(selection[question.id] ?? [], answerId, question.allow_multiple),
     }));
+  }
+
+  /** Shows or hides the results on small screens ("See results" / "Close results"). */
+  toggleResults(): void {
+    this.showResults.update((isOpen) => !isOpen);
   }
 
   /** Sends the vote once every question is answered and shows an error if saving fails. */

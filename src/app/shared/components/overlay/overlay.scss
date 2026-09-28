@@ -47,3 +47,13 @@
     transform: translateY(0);
   }
 }
+
+@media (max-width: 768px) {
+  .toast {
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    justify-content: space-between;
+    max-width: none;
+  }
+}

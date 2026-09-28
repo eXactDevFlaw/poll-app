@@ -91,3 +91,10 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .dropdown__list--right {
+    right: auto;
+    left: 0;
+  }
+}

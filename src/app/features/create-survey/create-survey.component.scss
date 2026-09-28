@@ -99,19 +99,39 @@
 @media (max-width: 768px) {
   .create-survey {
     padding: 24px 16px;
-    border-radius: 5px 40px 5px 5px;
+    border-radius: 5px 60px 5px 5px;
 
     &__questions {
       grid-template-columns: 1fr;
     }
 
     &__header {
-      flex-direction: column-reverse;
       align-items: flex-start;
+      margin-bottom: 24px;
     }
 
     &__title h2 {
       font-size: 40px;
+      line-height: 40px;
+    }
+
+    &__cancel-text {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    &__footer {
+      flex-direction: column;
+      margin-top: 24px;
+    }
+
+    &__actions {
+      flex-direction: column;
+      justify-content: center;
     }
 
     &__panel {
