@@ -9,7 +9,6 @@ import { Component, ElementRef, HostListener, inject, input, model, signal } fro
 export class Dropdown {
   private elementRef = inject(ElementRef);
 
-  label = input<string>('');
   options = input<string[]>([]);
   placeholder = input<string>('Select');
 

@@ -1,17 +1,17 @@
 .status {
   display: inline-block;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 12px;
-  border-radius: 20px;
+  padding: 2px 8px;
+  border-radius: 2px 8px 2px 2px;
   background: var(--color-secondary);
-  color: var(--color-dark);
+  color: var(--color-ink);
+  font-size: 14px;
+  font-weight: 400;
 
   &--active {
     background: var(--color-primary);
   }
 
   &--ended {
-    background: var(--color-text-muted);
+    background: #d9d0dd;
   }
 }

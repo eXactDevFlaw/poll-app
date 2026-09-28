@@ -3,57 +3,82 @@
   flex-direction: column;
   gap: 12px;
 
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &__title {
-    font-weight: 700;
-    font-size: 15px;
-  }
-
+  &__header,
   &__answers-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 4px;
   }
 
+  &__title,
   &__answers-label {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__answers-header {
+    margin-top: 12px;
   }
 
   &__checkbox {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: var(--color-text-muted);
+    gap: 4px;
+    font-size: 14px;
     cursor: pointer;
+  }
 
-    input {
-      accent-color: var(--color-primary);
-    }
+  &__checkbox-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  &__checkbox-input:focus-visible + * {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &__checkbox-icon {
+    display: block;
+    width: 21px;
+    height: 21px;
+  }
+
+  // Same size as the visible square inside checkbox-checked.svg (15px in a 21px box)
+  &__checkbox-box {
+    width: 15px;
+    height: 15px;
+    margin: 3px;
+    border: 1.5px solid var(--color-text);
+    border-radius: 3px;
   }
 
   &__answer {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+
+    app-input-field {
+      flex: 1;
+    }
   }
 
   &__letter {
-    width: 16px;
+    width: 22px;
+    font-size: 16px;
     font-weight: 700;
   }
 
   &__add-answer {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 12px;
+    gap: 8px 16px;
+    margin-top: 12px;
+    padding-left: 34px;
   }
 
   &__hint {

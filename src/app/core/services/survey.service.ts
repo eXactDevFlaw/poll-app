@@ -52,7 +52,7 @@ export class SurveyService {
   async publishSurvey(meta: NewSurveyMeta, questions: DraftQuestion[]): Promise<Survey> {
     const { data: survey, error: surveyError } = await this.supabase
       .from('surveys')
-      .insert({ ...meta, status: 'published' })
+      .insert({ ...meta, end_date: meta.end_date || null, status: 'published' })
       .select()
       .single();
 

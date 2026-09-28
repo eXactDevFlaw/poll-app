@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 
-export type ButtonVariant = 'primary' | 'tertiary' | 'icon';
+export type ButtonVariant = 'primary' | 'tertiary' | 'link';
 
 @Component({
   selector: 'app-button',

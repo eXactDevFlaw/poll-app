@@ -1,0 +1,11 @@
+<button
+  type="button"
+  class="delete-btn"
+  [attr.aria-label]="label()"
+  [title]="label()"
+  [disabled]="disabled()"
+  (click)="remove.emit()"
+>
+  <img class="delete-btn__icon" src="assets/img/trashcan.svg" alt="" />
+  <img class="delete-btn__icon delete-btn__icon--hover" src="assets/img/trashcan-hover.svg" alt="" />
+</button>

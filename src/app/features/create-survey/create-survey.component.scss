@@ -1,45 +1,89 @@
+// Measurements refer to the 1440px Figma frame
 .create-survey {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 32px;
-  background: var(--color-dark);
-  border-radius: 5px 60px 5px 5px;
+  width: 100%;
+  max-width: 1166px;
+  margin: 72px auto;
+  padding: 40px 54px;
+  background: var(--color-bg);
+  border-radius: 5px 100px 5px 5px;
 
   &__header {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-    margin-bottom: 32px;
+    gap: 24px;
+    margin-bottom: 48px;
   }
 
-  &__title-row {
+  &__title {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
 
     h1 {
-      font-family: 'Nerko One', cursive;
-      color: var(--color-primary);
-      font-size: 32px;
+      color: var(--color-accent);
+      font-size: 56px;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+  }
+
+  &__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    padding: 40px 32px;
+    background: var(--color-panel);
+    border-radius: 5px 80px 5px 5px;
+
+    app-add-question-btn {
+      align-self: flex-start;
     }
   }
 
   &__questions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 56px 76px;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+    margin-top: 48px;
   }
 
   &__error {
     color: var(--color-danger);
     font-size: 14px;
-    margin-bottom: 16px;
   }
+}
 
-  &__footer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 24px;
+@media (max-width: 768px) {
+  .create-survey {
+    margin: 24px auto;
+    padding: 24px 16px;
+    border-radius: 5px 40px 5px 5px;
+
+    &__questions {
+      grid-template-columns: 1fr;
+    }
+
+    &__header {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
+
+    &__title h1 {
+      font-size: 40px;
+    }
+
+    &__panel {
+      padding: 24px 16px;
+      border-radius: 5px 40px 5px 5px;
+    }
   }
 }

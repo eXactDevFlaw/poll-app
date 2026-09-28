@@ -1,29 +1,41 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
 
   &__label {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     color: var(--color-text);
   }
 
+  &__optional {
+    margin-left: 4px;
+    font-weight: 400;
+  }
+
   &__control {
-    position: relative;
     display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__control:has(.field__input--multiline) {
+    align-items: flex-start;
   }
 
   &__input {
-    width: 100%;
-    background: var(--color-field-bg);
-    color: var(--color-field-text);
+    flex: 1;
+    min-width: 0;
+    height: 38px;
+    padding: 7px 13px;
     border: none;
-    border-radius: 8px;
-    padding: 12px 16px;
+    border-radius: 5px 20px 5px 5px;
+    background: var(--color-field-bg);
+    color: var(--color-ink);
     font-family: inherit;
-    font-size: 14px;
+    font-size: 16px;
 
     &::placeholder {
       color: #9a94a3;
@@ -32,32 +44,10 @@
     &:focus {
       outline: 2px solid var(--color-primary);
     }
-  }
 
-  textarea.field__input {
-    min-height: 120px;
-    resize: vertical;
-  }
-
-  &__clear {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: #9a94a3;
-    cursor: pointer;
-    display: flex;
-    padding: 4px;
-
-    svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    &:hover {
-      color: var(--color-dark);
+    &--multiline {
+      height: 108px;
+      resize: none;
     }
   }
 }

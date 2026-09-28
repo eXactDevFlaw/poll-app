@@ -10,6 +10,10 @@
     margin-bottom: 32px;
   }
 
+  &__logo-link {
+    display: inline-flex;
+  }
+
   &__logo {
     height: 40px;
     object-fit: contain;

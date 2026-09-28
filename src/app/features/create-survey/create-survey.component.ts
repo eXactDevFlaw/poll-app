@@ -42,7 +42,7 @@ export class CreateSurveyComponent {
 
   isValid = computed(() => {
     const meta = this.meta();
-    if (!meta.name.trim() || !meta.category || !meta.end_date) return false;
+    if (!meta.name.trim() || !meta.category) return false;
 
     return this.questions().every(
       (question) => question.text.trim().length > 0 && question.answers.filter((a) => a.trim().length > 0).length >= 2,

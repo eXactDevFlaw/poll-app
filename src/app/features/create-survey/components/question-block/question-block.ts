@@ -2,13 +2,14 @@ import { Component, input, model, output } from '@angular/core';
 import { DraftQuestion } from '../../../../core/services/survey.service';
 import { InputField } from '../../../../shared/components/input-field/input-field';
 import { Button } from '../../../../shared/components/button/button';
+import { DeleteButton } from '../../../../shared/components/delete-button/delete-button';
 
 const MAX_ANSWERS = 6;
 const MIN_ANSWERS = 2;
 
 @Component({
   selector: 'app-question-block',
-  imports: [InputField, Button],
+  imports: [InputField, Button, DeleteButton],
   templateUrl: './question-block.html',
   styleUrl: './question-block.scss',
 })

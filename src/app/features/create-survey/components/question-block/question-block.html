@@ -1,15 +1,10 @@
 <div class="question-block">
   <div class="question-block__header">
     <span class="question-block__title">{{ index() + 1 }}. Question</span>
-    <app-button variant="icon" (buttonClick)="onDelete()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="3 6 5 6 21 6"></polyline>
-        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
-        <path d="M10 11v6"></path>
-        <path d="M14 11v6"></path>
-        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
-      </svg>
-    </app-button>
+    <app-delete-button
+      [label]="index() === 0 ? 'Clear question 1' : 'Delete question ' + (index() + 1)"
+      (remove)="onDelete()"
+    />
   </div>
 
   <app-input-field
@@ -23,9 +18,15 @@
     <label class="question-block__checkbox">
       <input
         type="checkbox"
+        class="question-block__checkbox-input"
         [checked]="question().allow_multiple"
         (change)="setAllowMultiple($any($event.target).checked)"
       />
+      @if (question().allow_multiple) {
+        <img class="question-block__checkbox-icon" src="assets/img/checkbox-checked.svg" alt="" />
+      } @else {
+        <span class="question-block__checkbox-box"></span>
+      }
       Allow multiple answers.
     </label>
   </div>
@@ -34,22 +35,21 @@
     <div class="question-block__answer">
       <span class="question-block__letter">{{ letterFor($index) }}.</span>
       <app-input-field [value]="answer" (valueChange)="setAnswer($index, $event)" />
-      <app-button variant="icon" [disabled]="question().answers.length <= minAnswers" (buttonClick)="removeAnswer($index)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="3 6 5 6 21 6"></polyline>
-          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
-          <path d="M10 11v6"></path>
-          <path d="M14 11v6"></path>
-          <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
-        </svg>
-      </app-button>
+      <app-delete-button
+        [label]="'Remove answer ' + letterFor($index)"
+        [disabled]="question().answers.length <= minAnswers"
+        (remove)="removeAnswer($index)"
+      />
     </div>
   }
 
   <div class="question-block__add-answer">
-    <app-button variant="tertiary" [disabled]="question().answers.length >= maxAnswers" (buttonClick)="addAnswer()">
-      Add answer +
+    <app-button variant="link" [disabled]="question().answers.length >= maxAnswers" (buttonClick)="addAnswer()">
+      Add answer
+      <img src="assets/img/add-circle.svg" alt="" />
     </app-button>
-    <span class="question-block__hint">You can add up to 6 answer fields.</span>
+    @if (question().answers.length > minAnswers) {
+      <span class="question-block__hint">You can add up to {{ maxAnswers }} answer fields.</span>
+    }
   </div>
 </div>

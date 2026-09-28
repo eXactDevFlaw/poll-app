@@ -1,0 +1,30 @@
+.delete-btn {
+  position: relative;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &__icon {
+    position: absolute;
+    inset: 0;
+    display: block;
+    transition: opacity 150ms ease-out;
+
+    &--hover {
+      opacity: 0;
+    }
+  }
+
+  &:hover:not(:disabled) &__icon--hover {
+    opacity: 1;
+  }
+}
