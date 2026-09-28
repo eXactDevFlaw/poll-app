@@ -65,6 +65,11 @@
     background: var(--color-bg-card);
     border-radius: 4px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+
+    &--right {
+      right: 0;
+      left: auto;
+    }
   }
 
   &__option {

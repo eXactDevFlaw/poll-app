@@ -1,6 +1,7 @@
 import { Component, computed, inject, output, signal } from '@angular/core';
 import { DraftQuestion, NewSurveyMeta, SurveyService } from '../../core/services/survey.service';
 import { Survey } from '../../core/models/survey.model';
+import { CATEGORIES } from '../../core/constants/categories';
 import { Button } from '../../shared/components/button/button';
 import { SurveyStatus } from '../../shared/components/survey-status/survey-status';
 import { SurveyMetaForm } from './components/survey-meta-form/survey-meta-form';
@@ -15,15 +16,6 @@ import {
   validateMeta,
   validateQuestion,
 } from './survey-form.validation';
-
-const CATEGORIES = [
-  'Team Activities',
-  'Health & Wellness',
-  'Gaming & Entertainment',
-  'Education & Learning',
-  'Lifestyle & Preferences',
-  'Technology & Innovation',
-];
 
 function emptyQuestion(): DraftQuestion {
   return { text: '', allow_multiple: false, answers: ['', ''] };

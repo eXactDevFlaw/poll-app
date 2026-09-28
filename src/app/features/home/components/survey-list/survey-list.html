@@ -1,30 +1,46 @@
-<div class="survey-tabs" role="tablist">
-  <button
-    type="button"
-    role="tab"
-    class="survey-tabs__tab"
-    [class.survey-tabs__tab--active]="activeTab() === 'active'"
-    [attr.aria-selected]="activeTab() === 'active'"
-    (click)="activeTab.set('active')"
-  >
-    Active surveys
-  </button>
-  <button
-    type="button"
-    role="tab"
-    class="survey-tabs__tab"
-    [class.survey-tabs__tab--active]="activeTab() === 'past'"
-    [attr.aria-selected]="activeTab() === 'past'"
-    (click)="activeTab.set('past')"
-  >
-    Past surveys
-  </button>
+<div class="survey-filters">
+  <div class="survey-tabs" role="tablist" aria-label="Survey status">
+    <button
+      type="button"
+      role="tab"
+      class="survey-tabs__tab"
+      [class.survey-tabs__tab--active]="activeTab() === 'active'"
+      [attr.aria-selected]="activeTab() === 'active'"
+      (click)="activeTab.set('active')"
+    >
+      Active survey
+    </button>
+    <button
+      type="button"
+      role="tab"
+      class="survey-tabs__tab"
+      [class.survey-tabs__tab--active]="activeTab() === 'past'"
+      [attr.aria-selected]="activeTab() === 'past'"
+      (click)="activeTab.set('past')"
+    >
+      Past survey
+    </button>
+  </div>
+
+  <div class="survey-filters__category">
+    <app-dropdown
+      placeholder="Sort by categories"
+      keepPlaceholder
+      align="right"
+      [options]="categoryOptions"
+      [selected]="selectedCategory() || categoryOptions[0]"
+      (selectedChange)="selectCategory($event)"
+    />
+    @if (selectedCategory()) {
+      <span class="survey-filters__selected">{{ selectedCategory() }}</span>
+    }
+  </div>
 </div>
 
 <div class="survey-list" role="tabpanel">
   @for (survey of visibleSurveys(); track survey.id) {
     <app-survey-card [survey]="survey" />
   } @empty {
-    <p>{{ activeTab() === 'active' ? 'No active surveys.' : 'No past surveys yet.' }}</p>
+    <p class="survey-list__empty">{{ emptyMessage() }}</p>
   }
 </div>

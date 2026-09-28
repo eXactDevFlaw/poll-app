@@ -10,7 +10,7 @@
     (click)="toggle()"
   >
     <span>
-      {{ selected() || placeholder() }}
+      {{ keepPlaceholder() ? placeholder() : selected() || placeholder() }}
       @if (required()) {
         <span class="dropdown__required" aria-hidden="true">*</span>
       }
@@ -22,7 +22,7 @@
   </button>
 
   @if (isOpen()) {
-    <ul class="dropdown__list" role="listbox">
+    <ul class="dropdown__list" [class.dropdown__list--right]="align() === 'right'" role="listbox">
       @for (option of options(); track option) {
         <li role="option" [attr.aria-selected]="option === selected()">
           <button

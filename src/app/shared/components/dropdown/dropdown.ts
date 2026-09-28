@@ -15,6 +15,10 @@ export class Dropdown {
   placeholder = input<string>('Select');
   required = input(false, { transform: booleanAttribute });
   error = input<string | undefined>(undefined);
+  /** The trigger always shows the placeholder instead of the selected option. */
+  keepPlaceholder = input(false, { transform: booleanAttribute });
+  /** Opens the menu towards the left – for dropdowns at the right edge. */
+  align = input<'left' | 'right'>('left');
 
   selected = model<string>('');
 
