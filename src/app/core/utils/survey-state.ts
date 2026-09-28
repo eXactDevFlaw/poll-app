@@ -66,3 +66,12 @@ export function getDaysLabel(survey: Survey, today: Date = new Date()): string {
   if (days === 0) return 'Ends today';
   return days === 1 ? 'Ends in 1 Day' : `Ends in ${days} Days`;
 }
+
+/**
+ * Formats a date like in the design: '2026-09-30' → '30.09.2026'.
+ * @param date A date ('YYYY-MM-DD') or ISO timestamp.
+ */
+export function formatDate(date: string): string {
+  const [year, month, day] = date.slice(0, ISO_DATE_LENGTH).split('-');
+  return `${day}.${month}.${year}`;
+}

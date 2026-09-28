@@ -4,7 +4,7 @@ import { SurveyState } from '../../../core/utils/survey-state';
 
 const LABELS: Record<SurveyState, string> = {
   draft: 'Draft',
-  active: 'Active',
+  active: 'Published',
   ended: 'Ended',
 };
 

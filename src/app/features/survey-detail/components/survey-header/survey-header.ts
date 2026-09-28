@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 
 import { Survey } from '../../../../core/models/survey.model';
-import { getSurveyState } from '../../../../core/utils/survey-state';
+import { formatDate, getSurveyState } from '../../../../core/utils/survey-state';
 import { SurveyStatus } from '../../../../shared/components/survey-status/survey-status';
 
 @Component({
@@ -14,4 +14,11 @@ export class SurveyHeader {
   survey = input.required<Survey>();
 
   state = computed(() => getSurveyState(this.survey()));
+
+  deadline = computed(() => {
+    const endDate = this.survey().end_date;
+    if (!endDate) return 'No end date';
+    const prefix = this.state() === 'ended' ? 'Ended on' : 'Ends on';
+    return `${prefix} ${formatDate(endDate)}`;
+  });
 }

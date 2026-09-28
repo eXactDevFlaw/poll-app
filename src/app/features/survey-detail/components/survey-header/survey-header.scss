@@ -1,30 +1,30 @@
 .survey-header {
-  color: var(--color-dark);
-
-  &__top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--color-ink);
 
   &__meta {
     display: flex;
-    gap: 16px;
-    font-size: 12px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 16px;
+    width: 100%;
     color: #888;
+    font-size: 14px;
   }
 
   h1 {
-    font-family: 'Nerko One', cursive;
-    font-size: 28px;
-    color: var(--color-primary);
-    margin-bottom: 12px;
+    color: var(--color-accent);
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.1;
   }
 
-  p {
-    font-size: 14px;
+  &__description {
+    margin-bottom: 16px;
+    font-size: 16px;
     line-height: 1.5;
-    margin-bottom: 24px;
   }
 }
