@@ -1,4 +1,5 @@
 import { booleanAttribute, Component, input, model } from '@angular/core';
+
 import { DeleteButton } from '../delete-button/delete-button';
 
 let nextId = 0;
@@ -29,6 +30,12 @@ export class InputField {
   readonly id = `input-field-${nextId++}`;
   readonly errorId = `${this.id}-error`;
 
+  /** Takes over the typed text of the input or textarea. */
+  onInput(event: Event): void {
+    this.value.set((event.target as HTMLInputElement | HTMLTextAreaElement).value);
+  }
+
+  /** Empties the field (trash button next to it). */
   clear(): void {
     this.value.set('');
   }

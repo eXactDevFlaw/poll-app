@@ -1,6 +1,7 @@
 import { Component, computed, input, signal } from '@angular/core';
-import { Survey } from '../../../../core/models/survey.model';
+
 import { CATEGORIES } from '../../../../core/constants/categories';
+import { Survey } from '../../../../core/models/survey.model';
 import { isEnded } from '../../../../core/utils/survey-state';
 import { Dropdown } from '../../../../shared/components/dropdown/dropdown';
 import { SurveyCardComponent } from '../survey-card/survey-card';
@@ -24,7 +25,6 @@ export class SurveyListComponent {
 
   readonly categoryOptions = [ALL_CATEGORIES, ...CATEGORIES];
 
-  /** First filter by tab (active/past), then by category – active and past surveys are never mixed. */
   visibleSurveys = computed(() => {
     const showPast = this.activeTab() === 'past';
     const category = this.selectedCategory();
@@ -33,10 +33,12 @@ export class SurveyListComponent {
       .filter((survey) => !category || survey.category === category);
   });
 
+  /** Filters by the chosen category – "All Surveys" removes the filter. */
   selectCategory(option: string): void {
     this.selectedCategory.set(option === ALL_CATEGORIES ? '' : option);
   }
 
+  /** Message for an empty list, e.g. 'No past surveys in "Gaming & Entertainment".' */
   emptyMessage(): string {
     const type = this.activeTab() === 'active' ? 'active' : 'past';
     const category = this.selectedCategory();

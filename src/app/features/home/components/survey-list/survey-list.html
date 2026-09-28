@@ -37,10 +37,16 @@
   </div>
 </div>
 
-<div class="survey-list" role="tabpanel">
-  @for (survey of visibleSurveys(); track survey.id) {
-    <app-survey-card [survey]="survey" />
-  } @empty {
+<div role="tabpanel">
+  @if (visibleSurveys().length) {
+    <ul class="survey-list">
+      @for (survey of visibleSurveys(); track survey.id) {
+        <li>
+          <app-survey-card [survey]="survey" />
+        </li>
+      }
+    </ul>
+  } @else {
     <p class="survey-list__empty">{{ emptyMessage() }}</p>
   }
 </div>

@@ -27,7 +27,7 @@
         type="checkbox"
         class="question-block__checkbox-input"
         [checked]="question().allow_multiple"
-        (change)="setAllowMultiple($any($event.target).checked)"
+        (change)="onAllowMultipleChange($event)"
       />
       @if (question().allow_multiple) {
         <img class="question-block__checkbox-icon" src="assets/img/checkbox-checked.svg" alt="" />

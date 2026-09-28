@@ -1,4 +1,5 @@
 import { Component, output } from '@angular/core';
+
 import { Overlay } from '../../../../shared/components/overlay/overlay';
 
 @Component({

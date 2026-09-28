@@ -12,7 +12,7 @@
     <p>Survey not found.</p>
   } @else {
     <div class="survey-detail__content">
-      <div class="survey-detail__card">
+      <article class="survey-detail__card">
         <app-survey-header [survey]="survey()!" />
         @if (isEnded()) {
           <p class="survey-detail__notice">This survey has ended. You can still view the results, but no more answers are accepted.</p>
@@ -45,7 +45,7 @@
             }
           </app-button>
         </div>
-      </div>
+      </article>
 
       <aside class="survey-detail__results">
         <app-result-panel [questions]="questions()" />

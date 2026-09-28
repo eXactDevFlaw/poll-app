@@ -1,10 +1,6 @@
-// Measurements refer to the 1440px Figma frame
 .create-survey {
-  // Space above and below the card: 72px like in Figma. On shorter screens it shrinks so that
-  // the default card (924px high in Figma) still fits without scrolling.
   --overlay-gap: clamp(16px, calc((100dvh - 924px) / 2), 72px);
 
-  // The card never gets taller than the screen – only the inner panel scrolls
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -30,7 +26,7 @@
     align-items: flex-start;
     gap: 0;
 
-    h1 {
+    h2 {
       color: var(--color-accent);
       font-size: 56px;
       font-weight: 400;
@@ -52,7 +48,6 @@
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary) transparent;
 
-    // Figma: 64px between the meta fields and the questions, 48px before "Add next question"
     app-survey-meta-form {
       margin-bottom: 16px;
     }
@@ -115,7 +110,7 @@
       align-items: flex-start;
     }
 
-    &__title h1 {
+    &__title h2 {
       font-size: 40px;
     }
 

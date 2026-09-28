@@ -1,4 +1,5 @@
 import { Component, computed, input } from '@angular/core';
+
 import { SurveyState } from '../../../core/utils/survey-state';
 
 const LABELS: Record<SurveyState, string> = {

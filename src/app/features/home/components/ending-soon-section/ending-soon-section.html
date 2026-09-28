@@ -1,12 +1,14 @@
-<div class="ending-soon">
-  <h3>Ending soon surveys</h3>
-  <div class="ending-soon__grid">
+<section class="ending-soon" aria-labelledby="ending-soon-title">
+  <h3 id="ending-soon-title">Ending soon surveys</h3>
+  <ul class="ending-soon__grid">
     @for (survey of surveys(); track survey.id) {
-      <a class="ending-soon__card" [routerLink]="['/survey', survey.id]">
-        <span class="ending-soon__category">{{ survey.category }}</span>
-        <h4>{{ survey.name }}</h4>
-        <span class="ending-soon__badge">{{ getDaysLabel(survey) }}</span>
-      </a>
+      <li>
+        <a class="ending-soon__card" [routerLink]="['/survey', survey.id]">
+          <span class="ending-soon__category">{{ survey.category }}</span>
+          <h4>{{ survey.name }}</h4>
+          <span class="ending-soon__badge">{{ getDaysLabel(survey) }}</span>
+        </a>
+      </li>
     }
-  </div>
-</div>
+  </ul>
+</section>

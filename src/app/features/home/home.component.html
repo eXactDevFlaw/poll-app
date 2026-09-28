@@ -3,38 +3,10 @@
     <img src="assets/img/logo-light.svg" alt="Poll App" class="header__logo" />
   </header>
 
-  <section class="hero">
-    <div class="hero__content">
-      <h1>Collect Feedback,<br>Unlock Ideas</h1>
-      <p>Create and share surveys in minutes - from team events to
-      workplace culture. Collect opinions, engage your audience,
-      and turn feedback into action.</p>
-      <button class="new-survey-btn" type="button" (click)="openCreate()">
-        <img class="new-survey-btn__default" src="assets/img/new-survey-btn.svg" alt="New survey" />
-        <img class="new-survey-btn__hover" src="assets/img/new-survey-btn-hover.svg" alt="" aria-hidden="true" />
-      </button>
-    </div>
-    <div class="hero__image">
-      <div class="hero__scene">
-        <img class="hero__scene-logo" src="assets/img/logo.svg" alt="" aria-hidden="true" />
-        <div class="hero__scene-icon hero__scene-icon--typing">
-          <img src="assets/img/typing-bubble.svg" alt="" aria-hidden="true" />
-        </div>
-        <div class="hero__scene-icon hero__scene-icon--star">
-          <img src="assets/img/star.svg" alt="" aria-hidden="true" />
-        </div>
-        <div class="hero__scene-icon hero__scene-icon--question">
-          <img src="assets/img/question-mark.svg" alt="" aria-hidden="true" />
-        </div>
-        <div class="hero__scene-icon hero__scene-icon--check">
-          <img src="assets/img/check.svg" alt="" aria-hidden="true" />
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-hero (newSurvey)="openCreate()" />
 
-  <section class="surveys">
-    <h2>Your surveys</h2>
+  <section class="surveys" aria-labelledby="surveys-title">
+    <h2 id="surveys-title">Your surveys</h2>
     @if (isLoading()) {
       <p>Loading...</p>
     } @else {

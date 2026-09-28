@@ -1,11 +1,11 @@
 import { Component, input, model, output } from '@angular/core';
+
 import { DraftQuestion } from '../../../../core/services/survey.service';
-import { InputField } from '../../../../shared/components/input-field/input-field';
+import { answerLetter } from '../../../../core/utils/answer-letter';
 import { Button } from '../../../../shared/components/button/button';
 import { DeleteButton } from '../../../../shared/components/delete-button/delete-button';
-import { MIN_ANSWERS, QuestionErrors } from '../../survey-form.validation';
-
-const MAX_ANSWERS = 6;
+import { InputField } from '../../../../shared/components/input-field/input-field';
+import { createEmptyQuestion, MAX_ANSWERS, MIN_ANSWERS, QuestionErrors } from '../../survey-form.validation';
 
 @Component({
   selector: 'app-question-block',
@@ -22,19 +22,20 @@ export class QuestionBlock {
 
   readonly maxAnswers = MAX_ANSWERS;
   readonly minAnswers = MIN_ANSWERS;
+  readonly letterFor = answerLetter;
 
-  letterFor(answerIndex: number): string {
-    return String.fromCharCode(65 + answerIndex);
-  }
-
+  /** Updates the question text. */
   setText(text: string): void {
     this.question.update((question) => ({ ...question, text }));
   }
 
-  setAllowMultiple(allow_multiple: boolean): void {
+  /** Reads the "Allow multiple answers" checkbox and stores its state. */
+  onAllowMultipleChange(event: Event): void {
+    const allow_multiple = (event.target as HTMLInputElement).checked;
     this.question.update((question) => ({ ...question, allow_multiple }));
   }
 
+  /** Updates the text of one answer field. */
   setAnswer(answerIndex: number, text: string): void {
     this.question.update((question) => ({
       ...question,
@@ -42,10 +43,12 @@ export class QuestionBlock {
     }));
   }
 
+  /** Adds an empty answer field. */
   addAnswer(): void {
     this.question.update((question) => ({ ...question, answers: [...question.answers, ''] }));
   }
 
+  /** Removes one answer field. */
   removeAnswer(answerIndex: number): void {
     this.question.update((question) => ({
       ...question,
@@ -53,9 +56,11 @@ export class QuestionBlock {
     }));
   }
 
+  /** The first question is only cleared (a survey needs at least one), every other one is removed. */
   onDelete(): void {
-    if (this.index() === 0) {
-      this.question.set({ text: '', allow_multiple: false, answers: ['', ''] });
+    const isFirstQuestion = this.index() === 0;
+    if (isFirstQuestion) {
+      this.question.set(createEmptyQuestion());
     } else {
       this.remove.emit();
     }

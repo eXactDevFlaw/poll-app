@@ -1,1 +1,30 @@
-<p>hero works!</p>
+<section class="hero">
+  <div class="hero__content">
+    <h1>Collect Feedback,<br />Unlock Ideas</h1>
+    <p>
+      Create and share surveys in minutes - from team events to workplace culture. Collect opinions, engage your
+      audience, and turn feedback into action.
+    </p>
+    <button class="new-survey-btn" type="button" (click)="newSurvey.emit()">
+      <img class="new-survey-btn__default" src="assets/img/new-survey-btn.svg" alt="New survey" />
+      <img class="new-survey-btn__hover" src="assets/img/new-survey-btn-hover.svg" alt="" aria-hidden="true" />
+    </button>
+  </div>
+  <div class="hero__image" aria-hidden="true">
+    <div class="hero__scene">
+      <img class="hero__scene-logo" src="assets/img/logo.svg" alt="" />
+      <div class="hero__scene-icon hero__scene-icon--typing">
+        <img src="assets/img/typing-bubble.svg" alt="" />
+      </div>
+      <div class="hero__scene-icon hero__scene-icon--star">
+        <img src="assets/img/star.svg" alt="" />
+      </div>
+      <div class="hero__scene-icon hero__scene-icon--question">
+        <img src="assets/img/question-mark.svg" alt="" />
+      </div>
+      <div class="hero__scene-icon hero__scene-icon--check">
+        <img src="assets/img/check.svg" alt="" />
+      </div>
+    </div>
+  </div>
+</section>

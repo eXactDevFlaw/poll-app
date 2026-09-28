@@ -48,7 +48,6 @@
     display: block;
     height: 100%;
     background: var(--color-primary);
-    // Smooth growth when a new vote arrives live
     transition: width 400ms ease-out;
   }
 

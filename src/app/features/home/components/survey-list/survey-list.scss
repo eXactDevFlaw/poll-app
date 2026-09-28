@@ -46,12 +46,14 @@
 }
 
 .survey-list {
+  list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
   gap: 16px;
   margin-top: 24px;
 
   &__empty {
+    margin-top: 24px;
     color: var(--color-text-muted);
   }
 }

@@ -26,19 +26,21 @@ export class Dropdown {
 
   readonly errorId = `dropdown-${nextId++}-error`;
 
+  /** Opens or closes the menu. */
   toggle(): void {
     this.isOpen.update((open) => !open);
   }
 
+  /** Selects an option and closes the menu. */
   select(option: string): void {
     this.selected.set(option);
     this.isOpen.set(false);
   }
 
+  /** Closes the menu when the user clicks anywhere outside of it. */
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.isOpen.set(false);
-    }
+    const isClickInside = this.elementRef.nativeElement.contains(event.target);
+    if (!isClickInside) this.isOpen.set(false);
   }
 }

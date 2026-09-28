@@ -1,6 +1,10 @@
 import { DraftQuestion, NewSurveyMeta } from '../../core/services/survey.service';
 
 export const MIN_ANSWERS = 2;
+export const MAX_ANSWERS = 6;
+
+const MS_PER_MINUTE = 60 * 1000;
+const ISO_DATE_LENGTH = 'YYYY-MM-DD'.length;
 
 export interface MetaErrors {
   name?: string;
@@ -13,21 +17,29 @@ export interface QuestionErrors {
   answers?: string;
 }
 
-/** Today's date as 'YYYY-MM-DD' in local time – the format of <input type="date">. */
-export function todayIso(): string {
-  const now = new Date();
-  const local = new Date(now.getTime() - now.getTimezoneOffset() * 60_000);
-  return local.toISOString().slice(0, 10);
+/** Returns a new question with an empty text and the minimum number of empty answers. */
+export function createEmptyQuestion(): DraftQuestion {
+  return { text: '', allow_multiple: false, answers: Array(MIN_ANSWERS).fill('') };
 }
 
-export function validateMeta(meta: NewSurveyMeta, today = todayIso()): MetaErrors {
+/** Today's date as 'YYYY-MM-DD' in local time – the format of `<input type="date">`. */
+export function todayIso(): string {
+  const now = new Date();
+  const local = new Date(now.getTime() - now.getTimezoneOffset() * MS_PER_MINUTE);
+  return local.toISOString().slice(0, ISO_DATE_LENGTH);
+}
+
+/** Checks name, category and end date. Fields without an error are `undefined`. */
+export function validateMeta(meta: NewSurveyMeta, today: string = todayIso()): MetaErrors {
+  const isEndDateInPast = !!meta.end_date && meta.end_date < today;
   return {
     name: meta.name.trim() ? undefined : 'Please enter a survey name.',
     category: meta.category ? undefined : 'Please choose a category.',
-    endDate: meta.end_date && meta.end_date < today ? 'The end date cannot be in the past.' : undefined,
+    endDate: isEndDateInPast ? 'The end date cannot be in the past.' : undefined,
   };
 }
 
+/** Checks the question text and its answers. Fields without an error are `undefined`. */
 export function validateQuestion(question: DraftQuestion): QuestionErrors {
   return {
     text: question.text.trim() ? undefined : 'Please enter a question.',
@@ -42,6 +54,7 @@ function validateAnswers(answers: string[]): string | undefined {
   return undefined;
 }
 
+/** Whether at least one field has an error message. */
 export function hasErrors(errors: MetaErrors | QuestionErrors): boolean {
   return Object.values(errors).some(Boolean);
 }
@@ -55,6 +68,7 @@ export function cleanQuestion(question: DraftQuestion): DraftQuestion {
   };
 }
 
+/** Trims name and description before saving. */
 export function cleanMeta(meta: NewSurveyMeta): NewSurveyMeta {
   return { ...meta, name: meta.name.trim(), description: meta.description.trim() };
 }

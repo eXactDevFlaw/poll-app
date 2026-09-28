@@ -8,12 +8,18 @@
   }
 
   &__grid {
+    list-style: none;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
 
+  &__grid > li {
+    display: flex;
+  }
+
   &__card {
+    flex: 1;
     background: var(--color-bg-card);
     border-radius: 0 16px 16px 16px;
     padding: 20px;

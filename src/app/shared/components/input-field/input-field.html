@@ -22,7 +22,7 @@
         [attr.aria-required]="required() || null"
         [attr.aria-invalid]="error() || invalid() ? true : null"
         [attr.aria-describedby]="error() ? errorId : null"
-        (input)="value.set($any($event.target).value)"
+        (input)="onInput($event)"
       ></textarea>
     } @else {
       <input
@@ -37,7 +37,7 @@
         [attr.aria-required]="required() || null"
         [attr.aria-invalid]="error() || invalid() ? true : null"
         [attr.aria-describedby]="error() ? errorId : null"
-        (input)="value.set($any($event.target).value)"
+        (input)="onInput($event)"
       />
     }
     @if (clearable()) {
