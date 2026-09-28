@@ -12,7 +12,19 @@
     font-family: inherit;
     font-size: 16px;
     font-weight: 700;
+    white-space: nowrap;
     cursor: pointer;
+  }
+
+  &__required {
+    margin-left: 2px;
+    color: var(--color-primary);
+  }
+
+  &__error {
+    margin-top: 8px;
+    color: var(--color-danger);
+    font-size: 14px;
   }
 
   &__arrow {

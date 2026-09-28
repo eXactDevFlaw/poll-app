@@ -2,6 +2,7 @@ import { Component, input, model } from '@angular/core';
 import { NewSurveyMeta } from '../../../../core/services/survey.service';
 import { InputField } from '../../../../shared/components/input-field/input-field';
 import { Dropdown } from '../../../../shared/components/dropdown/dropdown';
+import { MetaErrors, todayIso } from '../../survey-form.validation';
 
 @Component({
   selector: 'app-survey-meta-form',
@@ -11,7 +12,10 @@ import { Dropdown } from '../../../../shared/components/dropdown/dropdown';
 })
 export class SurveyMetaForm {
   categories = input<string[]>([]);
+  errors = input<MetaErrors>({});
   meta = model.required<NewSurveyMeta>();
+
+  readonly today = todayIso();
 
   setName(name: string): void {
     this.meta.update((meta) => ({ ...meta, name }));

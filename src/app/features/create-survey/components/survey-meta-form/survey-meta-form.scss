@@ -12,18 +12,22 @@
 
   &__row {
     display: flex;
-    flex-wrap: wrap;
     align-items: flex-start;
     gap: 12px 16px;
   }
 
   &__date {
     flex: 0 1 267px;
+    min-width: 0;
   }
 }
 
 @media (max-width: 768px) {
   .meta-form {
     grid-template-columns: 1fr;
+
+    &__row {
+      flex-wrap: wrap;
+    }
   }
 }

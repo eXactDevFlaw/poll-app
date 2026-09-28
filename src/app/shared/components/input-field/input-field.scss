@@ -1,13 +1,18 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   width: 100%;
 
   &__label {
     font-size: 16px;
     font-weight: 700;
     color: var(--color-text);
+  }
+
+  &__required {
+    margin-left: 2px;
+    color: var(--color-primary);
   }
 
   &__optional {
@@ -45,9 +50,18 @@
       outline: 2px solid var(--color-primary);
     }
 
+    &--invalid {
+      outline: 2px solid var(--color-danger);
+    }
+
     &--multiline {
       height: 108px;
       resize: none;
     }
+  }
+
+  &__error {
+    color: var(--color-danger);
+    font-size: 14px;
   }
 }

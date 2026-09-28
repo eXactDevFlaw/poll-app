@@ -1,6 +1,8 @@
 <div class="question-block">
   <div class="question-block__header">
-    <span class="question-block__title">{{ index() + 1 }}. Question</span>
+    <span class="question-block__title">
+      {{ index() + 1 }}. Question <span class="question-block__required" aria-hidden="true">*</span>
+    </span>
     <app-delete-button
       [label]="index() === 0 ? 'Clear question 1' : 'Delete question ' + (index() + 1)"
       (remove)="onDelete()"
@@ -9,12 +11,17 @@
 
   <app-input-field
     placeholder="Choose the activities you prefer"
+    required
+    [ariaLabel]="'Question ' + (index() + 1)"
+    [error]="errors().text"
     [value]="question().text"
     (valueChange)="setText($event)"
   />
 
   <div class="question-block__answers-header">
-    <span class="question-block__answers-label">Answers</span>
+    <span class="question-block__answers-label">
+      Answers <span class="question-block__required" aria-hidden="true">*</span>
+    </span>
     <label class="question-block__checkbox">
       <input
         type="checkbox"
@@ -34,13 +41,23 @@
   @for (answer of question().answers; track $index) {
     <div class="question-block__answer">
       <span class="question-block__letter">{{ letterFor($index) }}.</span>
-      <app-input-field [value]="answer" (valueChange)="setAnswer($index, $event)" />
+      <app-input-field
+        required
+        [ariaLabel]="'Question ' + (index() + 1) + ', answer ' + letterFor($index)"
+        [invalid]="!!errors().answers && !answer.trim()"
+        [value]="answer"
+        (valueChange)="setAnswer($index, $event)"
+      />
       <app-delete-button
         [label]="'Remove answer ' + letterFor($index)"
         [disabled]="question().answers.length <= minAnswers"
         (remove)="removeAnswer($index)"
       />
     </div>
+  }
+
+  @if (errors().answers) {
+    <p class="question-block__error" role="alert">{{ errors().answers }}</p>
   }
 
   <div class="question-block__add-answer">

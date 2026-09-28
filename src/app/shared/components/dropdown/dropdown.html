@@ -4,9 +4,17 @@
     class="dropdown__trigger"
     aria-haspopup="listbox"
     [attr.aria-expanded]="isOpen()"
+    [attr.aria-required]="required() || null"
+    [attr.aria-invalid]="error() ? true : null"
+    [attr.aria-describedby]="error() ? errorId : null"
     (click)="toggle()"
   >
-    <span>{{ selected() || placeholder() }}</span>
+    <span>
+      {{ selected() || placeholder() }}
+      @if (required()) {
+        <span class="dropdown__required" aria-hidden="true">*</span>
+      }
+    </span>
     <span class="dropdown__arrow" [class.dropdown__arrow--open]="isOpen()">
       <img class="dropdown__arrow-icon" src="assets/img/arrow-drop-down.svg" alt="" />
       <img class="dropdown__arrow-icon dropdown__arrow-icon--hover" src="assets/img/arrow-drop-down-hover.svg" alt="" />
@@ -28,5 +36,9 @@
         </li>
       }
     </ul>
+  }
+
+  @if (error()) {
+    <p class="dropdown__error" [id]="errorId">{{ error() }}</p>
   }
 </div>

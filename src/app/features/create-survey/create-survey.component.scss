@@ -1,14 +1,23 @@
 // Measurements refer to the 1440px Figma frame
 .create-survey {
+  // Space above and below the card: 72px like in Figma. On shorter screens it shrinks so that
+  // the default card (924px high in Figma) still fits without scrolling.
+  --overlay-gap: clamp(16px, calc((100dvh - 924px) / 2), 72px);
+
+  // The card never gets taller than the screen – only the inner panel scrolls
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 1166px;
-  margin: 72px auto;
+  max-height: calc(100dvh - 2 * var(--overlay-gap));
+  margin: var(--overlay-gap) auto;
   padding: 40px 54px;
   background: var(--color-bg);
   border-radius: 5px 100px 5px 5px;
 
   &__header {
     display: flex;
+    flex-shrink: 0;
     align-items: flex-end;
     justify-content: space-between;
     gap: 24px;
@@ -19,23 +28,34 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    gap: 0;
 
     h1 {
       color: var(--color-accent);
       font-size: 56px;
       font-weight: 400;
-      line-height: 1.1;
+      line-height: 48px;
     }
   }
 
   &__panel {
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
-    gap: 64px;
+    gap: 48px;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     padding: 40px 32px;
     background: var(--color-panel);
     border-radius: 5px 80px 5px 5px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) transparent;
+
+    // Figma: 64px between the meta fields and the questions, 48px before "Add next question"
+    app-survey-meta-form {
+      margin-bottom: 16px;
+    }
 
     app-add-question-btn {
       align-self: flex-start;
@@ -50,10 +70,29 @@
 
   &__footer {
     display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    margin-top: 48px;
+  }
+
+  &__legend {
+    font-size: 14px;
+    color: var(--color-text-muted);
+
+    span {
+      color: var(--color-primary);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
-    gap: 24px;
-    margin-top: 48px;
+    gap: 16px 24px;
   }
 
   &__error {
@@ -64,7 +103,6 @@
 
 @media (max-width: 768px) {
   .create-survey {
-    margin: 24px auto;
     padding: 24px 16px;
     border-radius: 5px 40px 5px 5px;
 

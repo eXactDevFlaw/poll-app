@@ -1,4 +1,6 @@
-import { Component, ElementRef, HostListener, inject, input, model, signal } from '@angular/core';
+import { booleanAttribute, Component, ElementRef, HostListener, inject, input, model, signal } from '@angular/core';
+
+let nextId = 0;
 
 @Component({
   selector: 'app-dropdown',
@@ -11,10 +13,14 @@ export class Dropdown {
 
   options = input<string[]>([]);
   placeholder = input<string>('Select');
+  required = input(false, { transform: booleanAttribute });
+  error = input<string | undefined>(undefined);
 
   selected = model<string>('');
 
   isOpen = signal(false);
+
+  readonly errorId = `dropdown-${nextId++}-error`;
 
   toggle(): void {
     this.isOpen.update((open) => !open);

@@ -3,9 +3,9 @@ import { DraftQuestion } from '../../../../core/services/survey.service';
 import { InputField } from '../../../../shared/components/input-field/input-field';
 import { Button } from '../../../../shared/components/button/button';
 import { DeleteButton } from '../../../../shared/components/delete-button/delete-button';
+import { MIN_ANSWERS, QuestionErrors } from '../../survey-form.validation';
 
 const MAX_ANSWERS = 6;
-const MIN_ANSWERS = 2;
 
 @Component({
   selector: 'app-question-block',
@@ -16,6 +16,7 @@ const MIN_ANSWERS = 2;
 export class QuestionBlock {
   index = input.required<number>();
   question = model.required<DraftQuestion>();
+  errors = input<QuestionErrors>({});
 
   remove = output<void>();
 

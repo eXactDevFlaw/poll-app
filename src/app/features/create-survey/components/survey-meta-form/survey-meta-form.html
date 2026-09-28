@@ -1,6 +1,13 @@
 <div class="meta-form">
   <div class="meta-form__col">
-    <app-input-field label="Survey name" clearable [value]="meta().name" (valueChange)="setName($event)" />
+    <app-input-field
+      label="Survey name"
+      required
+      clearable
+      [error]="errors().name"
+      [value]="meta().name"
+      (valueChange)="setName($event)"
+    />
     <div class="meta-form__row">
       <app-input-field
         class="meta-form__date"
@@ -8,11 +15,15 @@
         type="date"
         optional
         clearable
+        [min]="today"
+        [error]="errors().endDate"
         [value]="meta().end_date"
         (valueChange)="setEndDate($event)"
       />
       <app-dropdown
         placeholder="Choose category"
+        required
+        [error]="errors().category"
         [options]="categories()"
         [selected]="meta().category"
         (selectedChange)="setCategory($event)"
