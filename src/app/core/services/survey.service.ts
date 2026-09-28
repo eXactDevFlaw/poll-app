@@ -89,4 +89,20 @@ export class SurveyService {
     const { error } = await this.supabase.rpc('vote', { answer_ids: answerIds });
     if (error) throw error;
   }
+
+  /**
+   * Calls `onUpdate` whenever the votes of an answer of these questions change (Supabase Realtime).
+   * Returns a function that stops listening – call it when the page is left.
+   */
+  watchVotes(surveyId: string, questionIds: string[], onUpdate: (answer: Answer) => void): () => void {
+    const channel = this.supabase
+      .channel(`votes-${surveyId}`)
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'answers', filter: `question_id=in.(${questionIds.join(',')})` },
+        (payload) => onUpdate(payload.new as Answer),
+      )
+      .subscribe();
+    return () => void this.supabase.removeChannel(channel);
+  }
 }

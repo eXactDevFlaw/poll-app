@@ -1,0 +1,59 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: var(--color-ink);
+
+  &__title {
+    font-size: 28px;
+    font-weight: 400;
+  }
+
+  &__live {
+    color: var(--color-primary);
+  }
+
+  &__question {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__question-text {
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 16px 1fr 40px;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  &__letter {
+    font-weight: 700;
+  }
+
+  &__track {
+    height: 10px;
+    overflow: hidden;
+    border-radius: 2px 5px 5px 2px;
+    background: #e6e0e9;
+  }
+
+  &__bar {
+    display: block;
+    height: 100%;
+    background: var(--color-primary);
+    // Smooth growth when a new vote arrives live
+    transition: width 400ms ease-out;
+  }
+
+  &__percent {
+    color: var(--color-accent);
+    text-align: right;
+  }
+}

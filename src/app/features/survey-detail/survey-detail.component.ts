@@ -1,13 +1,14 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { QuestionWithAnswers, SurveyService } from '../../core/services/survey.service';
 import { Survey } from '../../core/models/survey.model';
+import { Answer } from '../../core/models/answer.model';
 import { isEnded } from '../../core/utils/survey-state';
 import { hasVoted, markVoted } from '../../core/utils/voted-surveys';
 import { Button } from '../../shared/components/button/button';
 import { SurveyHeader } from './components/survey-header/survey-header';
 import { AnswerSelection, AnswerToggle, QuestionList } from './components/question-list/question-list';
-import { EmptyResults } from './components/empty-results/empty-results';
+import { ResultPanel } from './components/result-panel/result-panel';
 
 /** Single choice replaces the selection, multiple choice adds or removes the answer. */
 function toggleAnswerId(selected: string[], answerId: string, multiple: boolean): string[] {
@@ -19,11 +20,12 @@ function toggleAnswerId(selected: string[], answerId: string, multiple: boolean)
   selector: 'app-survey-detail',
   templateUrl: './survey-detail.component.html',
   styleUrl: './survey-detail.component.scss',
-  imports: [RouterLink, Button, SurveyHeader, QuestionList, EmptyResults],
+  imports: [RouterLink, Button, SurveyHeader, QuestionList, ResultPanel],
 })
 export class SurveyDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private surveyService = inject(SurveyService);
+  private destroyRef = inject(DestroyRef);
 
   survey = signal<Survey | null>(null);
   questions = signal<QuestionWithAnswers[]>([]);
@@ -61,6 +63,24 @@ export class SurveyDetailComponent implements OnInit {
     this.questions.set(questions);
     this.hasVoted.set(hasVoted(id));
     this.isLoading.set(false);
+    this.watchVotes(id, questions);
+  }
+
+  /** Live results: every new vote (also from other users) updates the bars immediately. */
+  private watchVotes(surveyId: string, questions: QuestionWithAnswers[]): void {
+    if (!questions.length) return;
+    const questionIds = questions.map((question) => question.id);
+    const stopWatching = this.surveyService.watchVotes(surveyId, questionIds, (answer) => this.applyVotes(answer));
+    this.destroyRef.onDestroy(stopWatching);
+  }
+
+  private applyVotes(changed: Answer): void {
+    this.questions.update((questions) =>
+      questions.map((question) => ({
+        ...question,
+        answers: question.answers.map((answer) => (answer.id === changed.id ? { ...answer, votes: changed.votes } : answer)),
+      })),
+    );
   }
 
   toggleAnswer({ question, answerId }: AnswerToggle): void {
