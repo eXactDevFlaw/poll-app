@@ -63,7 +63,7 @@
           {{ showResults() ? 'Close results' : 'See results' }}
           <span class="survey-detail__arrow" [class.survey-detail__arrow--up]="showResults()" aria-hidden="true"></span>
         </button>
-        <app-result-panel id="survey-results" [questions]="questions()" />
+        <app-result-panel id="survey-results" [questions]="liveResults()" />
       </aside>
     </div>
   }

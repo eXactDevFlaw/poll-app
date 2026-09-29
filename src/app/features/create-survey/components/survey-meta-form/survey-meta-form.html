@@ -4,6 +4,7 @@
       label="Survey name"
       required
       clearable
+      [maxLength]="maxLength.name"
       [error]="errors().name"
       [value]="meta().name"
       (valueChange)="setName($event)"
@@ -13,7 +14,6 @@
         class="meta-form__date"
         label="Set end date"
         type="date"
-        optional
         clearable
         [min]="today"
         [error]="errors().endDate"
@@ -37,6 +37,7 @@
       multiline
       optional
       clearable
+      [maxLength]="maxLength.description"
       [value]="meta().description"
       (valueChange)="setDescription($event)"
     />

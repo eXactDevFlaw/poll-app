@@ -48,8 +48,10 @@
     }
   }
 
-  &__trigger:hover &__arrow-icon--hover {
-    opacity: 1;
+  @media (hover: hover) {
+    &__trigger:hover &__arrow-icon--hover {
+      opacity: 1;
+    }
   }
 
   &__list {
@@ -85,9 +87,14 @@
     white-space: nowrap;
     cursor: pointer;
 
-    &:hover,
     &--selected {
       background: #ece1f3;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background: #ece1f3;
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, computed, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Survey } from '../../core/models/survey.model';
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
   private surveyService = inject(SurveyService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private document = inject(DOCUMENT);
 
   surveys = signal<Survey[]>([]);
   endingSoon = computed(() => getEndingSoon(this.surveys()));
@@ -30,6 +32,10 @@ export class HomeComponent implements OnInit {
 
   isCreateOpen = signal(false);
   publishedSurvey = signal<Survey | null>(null);
+
+  constructor() {
+    this.lockScrollWhileCreateIsOpen();
+  }
 
   /** Loads the surveys and opens the create overlay if the URL contains `?create`. */
   async ngOnInit(): Promise<void> {
@@ -72,6 +78,13 @@ export class HomeComponent implements OnInit {
     if (!this.route.snapshot.queryParamMap.has('create')) return;
     this.openCreate();
     this.router.navigate([], { queryParams: {}, replaceUrl: true });
+  }
+
+  /** The page behind the create overlay must not scroll – also unlocked when leaving the page. */
+  private lockScrollWhileCreateIsOpen(): void {
+    const root = this.document.documentElement;
+    effect(() => root.classList.toggle('scroll-locked', this.isCreateOpen()));
+    inject(DestroyRef).onDestroy(() => root.classList.remove('scroll-locked'));
   }
 
   /** Loads all surveys from the database. */

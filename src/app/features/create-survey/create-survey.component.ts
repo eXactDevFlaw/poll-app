@@ -12,6 +12,7 @@ import {
   cleanMeta,
   cleanQuestion,
   createEmptyQuestion,
+  defaultEndDate,
   hasErrors,
   MetaErrors,
   QuestionErrors,
@@ -30,7 +31,7 @@ export class CreateSurveyComponent {
 
   readonly categories = CATEGORIES;
 
-  meta = signal<NewSurveyMeta>({ name: '', description: '', category: '', end_date: '' });
+  meta = signal<NewSurveyMeta>({ name: '', description: '', category: '', end_date: defaultEndDate() });
   questions = signal<DraftQuestion[]>([createEmptyQuestion()]);
 
   isPublishing = signal(false);

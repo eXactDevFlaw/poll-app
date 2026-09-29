@@ -11,37 +11,50 @@
     </label>
   }
   <div class="field__control">
-    @if (multiline()) {
-      <textarea
-        class="field__input field__input--multiline"
-        [class.field__input--invalid]="error() || invalid()"
-        [id]="id"
-        [placeholder]="placeholder()"
-        [value]="value()"
-        [attr.aria-label]="ariaLabel() || null"
-        [attr.aria-required]="required() || null"
-        [attr.aria-invalid]="error() || invalid() ? true : null"
-        [attr.aria-describedby]="error() ? errorId : null"
-        (input)="onInput($event)"
-      ></textarea>
-    } @else {
-      <input
-        class="field__input"
-        [class.field__input--invalid]="error() || invalid()"
-        [id]="id"
-        [type]="type()"
-        [placeholder]="placeholder()"
-        [value]="value()"
-        [attr.min]="min() || null"
-        [attr.aria-label]="ariaLabel() || null"
-        [attr.aria-required]="required() || null"
-        [attr.aria-invalid]="error() || invalid() ? true : null"
-        [attr.aria-describedby]="error() ? errorId : null"
-        (input)="onInput($event)"
-      />
-    }
+    <div class="field__box">
+      @if (multiline()) {
+        <textarea
+          class="field__input field__input--multiline"
+          [class.field__input--invalid]="error() || invalid()"
+          [id]="id"
+          [placeholder]="placeholder()"
+          [value]="value()"
+          [attr.maxlength]="maxLength()"
+          [attr.aria-label]="ariaLabel() || null"
+          [attr.aria-required]="required() || null"
+          [attr.aria-invalid]="error() || invalid() ? true : null"
+          [attr.aria-describedby]="describedBy()"
+          (input)="onInput($event)"
+        ></textarea>
+      } @else {
+        <input
+          class="field__input"
+          [class.field__input--invalid]="error() || invalid()"
+          [id]="id"
+          [type]="type()"
+          [placeholder]="placeholder()"
+          [value]="value()"
+          [attr.maxlength]="maxLength()"
+          [attr.min]="min() || null"
+          [attr.aria-label]="ariaLabel() || null"
+          [attr.aria-required]="required() || null"
+          [attr.aria-invalid]="error() || invalid() ? true : null"
+          [attr.aria-describedby]="describedBy()"
+          (input)="onInput($event)"
+        />
+      }
+      @if (maxLength()) {
+        <span class="field__counter" [class.field__counter--limit]="isAtLimit()" [id]="counterId">
+          {{ value().length }} / {{ maxLength() }}
+          <span class="visually-hidden">characters</span>
+        </span>
+      }
+    </div>
     @if (clearable()) {
-      <app-delete-button [label]="'Clear ' + (label() || ariaLabel() || 'field')" (remove)="clear()" />
+      <app-delete-button
+        [label]="'Clear ' + (label() || ariaLabel() || 'field')"
+        (remove)="clear()"
+      />
     }
   </div>
   @if (error()) {

@@ -30,8 +30,16 @@
     align-items: flex-start;
   }
 
+  &__box {
+    position: relative;
+    display: flex;
+    flex: 1;
+    min-width: 0;
+  }
+
   &__input {
     flex: 1;
+    width: 0; // grows via flex – keeps the browser's default input width from widening narrow layouts
     min-width: 0;
     height: 38px;
     padding: 7px 13px;
@@ -63,5 +71,41 @@
   &__error {
     color: var(--color-danger);
     font-size: 14px;
+  }
+
+  // Sits inside the input on the right, so it needs no extra space in the layout.
+  // Only shown while typing in the field, or once the limit is reached.
+  &__box:focus-within:has(.field__counter) .field__input,
+  &__box:has(.field__counter--limit) .field__input {
+    padding-right: 72px;
+  }
+
+  &__counter {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #9a94a3;
+    font-size: 12px;
+    white-space: nowrap;
+    visibility: hidden;
+
+    &--limit {
+      color: var(--color-accent);
+      font-weight: 700;
+      visibility: visible;
+    }
+  }
+
+  &:focus-within &__counter {
+    visibility: visible;
+  }
+
+  // In the textarea, the counter sits in the bottom right corner.
+  &__input--multiline ~ &__counter {
+    top: auto;
+    bottom: 8px;
+    transform: none;
   }
 }

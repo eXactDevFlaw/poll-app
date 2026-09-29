@@ -28,7 +28,9 @@
     }
   }
 
-  &:hover:not(:disabled) &__icon--hover {
-    opacity: 1;
+  @media (hover: hover) {
+    &:hover:not(:disabled) &__icon--hover {
+      opacity: 1;
+    }
   }
 }

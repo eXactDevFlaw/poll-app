@@ -13,6 +13,7 @@
     placeholder="Choose the activities you prefer"
     required
     [ariaLabel]="'Question ' + (index() + 1)"
+    [maxLength]="maxLength.question"
     [error]="errors().text"
     [value]="question().text"
     (valueChange)="setText($event)"
@@ -44,6 +45,7 @@
       <app-input-field
         required
         [ariaLabel]="'Question ' + (index() + 1) + ', answer ' + letterFor($index)"
+        [maxLength]="maxLength.answer"
         [invalid]="!!errors().answers && !answer.trim()"
         [value]="answer"
         (valueChange)="setAnswer($index, $event)"

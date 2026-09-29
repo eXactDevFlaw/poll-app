@@ -32,8 +32,10 @@
     text-decoration: none;
     transition: background-color 150ms ease-out;
 
-    &:hover {
-      background: #ece1f3;
+    @media (hover: hover) {
+      &:hover {
+        background: #ece1f3;
+      }
     }
   }
 
@@ -42,10 +44,17 @@
     font-size: 12px;
   }
 
+  // Always 3 lines high, so every card has the same size – no matter how long the name is.
   h4 {
     font-size: 24px;
     font-weight: 600;
     line-height: 1.25;
+    height: calc(3 * 1.25em);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
   }
 
   &__badge {

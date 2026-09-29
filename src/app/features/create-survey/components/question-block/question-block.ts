@@ -5,7 +5,7 @@ import { answerLetter } from '../../../../core/utils/answer-letter';
 import { Button } from '../../../../shared/components/button/button';
 import { DeleteButton } from '../../../../shared/components/delete-button/delete-button';
 import { InputField } from '../../../../shared/components/input-field/input-field';
-import { createEmptyQuestion, MAX_ANSWERS, MIN_ANSWERS, QuestionErrors } from '../../survey-form.validation';
+import { createEmptyQuestion, MAX_ANSWERS, MAX_LENGTH, MIN_ANSWERS, QuestionErrors } from '../../survey-form.validation';
 
 @Component({
   selector: 'app-question-block',
@@ -22,6 +22,7 @@ export class QuestionBlock {
 
   readonly maxAnswers = MAX_ANSWERS;
   readonly minAnswers = MIN_ANSWERS;
+  readonly maxLength = MAX_LENGTH;
   readonly letterFor = answerLetter;
 
   /** Updates the question text. */

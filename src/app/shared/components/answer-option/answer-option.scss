@@ -39,12 +39,14 @@
     padding-top: 1px;
   }
 
-  &:hover:not(.answer-option--disabled) {
-    background: rgba(255, 207, 161, 0.4);
-  }
+  @media (hover: hover) {
+    &:hover:not(.answer-option--disabled) {
+      background: rgba(255, 207, 161, 0.4);
+    }
 
-  &:hover:not(.answer-option--disabled) &__icon--hover {
-    opacity: 1;
+    &:hover:not(.answer-option--disabled) &__icon--hover {
+      opacity: 1;
+    }
   }
 
   &--checked &__icon--checked {

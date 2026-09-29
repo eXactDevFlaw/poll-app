@@ -31,11 +31,18 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: 'Mulish', sans-serif;
+  overflow-wrap: anywhere;
 }
 
 h1,
 h2 {
   font-family: 'Nerko One', cursive;
+}
+
+/* Set while a dialog is open, so the page behind it cannot be scrolled. */
+.scroll-locked,
+.scroll-locked body {
+  overflow: hidden;
 }
 
 .visually-hidden {

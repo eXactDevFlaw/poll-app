@@ -21,6 +21,9 @@ export interface DraftQuestion {
 
 export type QuestionWithAnswers = Question & { answers: Answer[] };
 
+/** Thrown by {@link SurveyService.vote} when this network has already voted on the survey. */
+export class AlreadyVotedError extends Error {}
+
 @Injectable({ providedIn: 'root' })
 export class SurveyService {
   private supabase: SupabaseClient = createClient(environment.supabaseUrl, environment.supabaseKey);
@@ -62,9 +65,14 @@ export class SurveyService {
     return survey;
   }
 
-  /** Adds one vote to each given answer. The database function rejects ended surveys. */
+  /**
+   * Adds one vote to each given answer. The database function rejects ended surveys
+   * and allows only one vote per survey and IP address (spam protection).
+   * @throws {AlreadyVotedError} If this network has already voted on the survey.
+   */
   async vote(answerIds: string[]): Promise<void> {
     const { error } = await this.supabase.rpc('vote', { answer_ids: answerIds });
+    if (error?.message === 'already_voted') throw new AlreadyVotedError();
     if (error) throw error;
   }
 
@@ -84,11 +92,11 @@ export class SurveyService {
     return () => void this.supabase.removeChannel(channel);
   }
 
-  /** Inserts the survey itself. An empty end date is saved as `null` (= no end date). */
+  /** Inserts the survey itself. */
   private async insertSurvey(meta: NewSurveyMeta): Promise<Survey> {
     const { data, error } = await this.supabase
       .from('surveys')
-      .insert({ ...meta, end_date: meta.end_date || null, status: 'published' })
+      .insert({ ...meta, status: 'published' })
       .select()
       .single();
     if (error || !data) throw error ?? new Error('Failed to create survey');

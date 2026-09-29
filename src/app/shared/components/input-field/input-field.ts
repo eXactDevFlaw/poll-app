@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, input, model } from '@angular/core';
+import { booleanAttribute, Component, computed, input, model } from '@angular/core';
 
 import { DeleteButton } from '../delete-button/delete-button';
 
@@ -17,6 +17,8 @@ export class InputField {
   placeholder = input<string>('');
   type = input<'text' | 'date'>('text');
   min = input<string>('');
+  /** Maximum number of characters that can be typed or pasted. */
+  maxLength = input<number | null>(null);
   multiline = input(false, { transform: booleanAttribute });
   clearable = input(false, { transform: booleanAttribute });
   optional = input(false, { transform: booleanAttribute });
@@ -29,6 +31,15 @@ export class InputField {
 
   readonly id = `input-field-${nextId++}`;
   readonly errorId = `${this.id}-error`;
+  readonly counterId = `${this.id}-counter`;
+
+  isAtLimit = computed(() => this.maxLength() !== null && this.value().length >= this.maxLength()!);
+
+  /** Error and character counter, so screen readers read them together with the field. */
+  describedBy = computed(() => {
+    const ids = [this.error() ? this.errorId : '', this.maxLength() ? this.counterId : ''].filter(Boolean);
+    return ids.join(' ') || null;
+  });
 
   /** Takes over the typed text of the input or textarea. */
   onInput(event: Event): void {
